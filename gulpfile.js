@@ -13,7 +13,7 @@ gulp.task('buildcss', function() {
     .pipe(autoprefixer())
     .pipe(cssnano())
     .pipe(rename('bundle.css'))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('public/dist/'));
 });
 
 gulp.task('buildjs', function() {
@@ -21,7 +21,7 @@ gulp.task('buildjs', function() {
     .pipe(browser.browserify())
     .pipe(uglify())
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('public/dist/'));
 });
 
 gulp.task('jshint', function() {
