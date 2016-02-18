@@ -5,9 +5,13 @@ var gulp = require('gulp'),
     browser = require('gulp-browser'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
-    rename = require("gulp-rename");
+    jsx = require('gulp-jsx'),
+    babelify = require('gulp-babel'),
+    rename = require("gulp-rename"),
+    concat = require("gulp-concat"),
+    react = require('react');
     
-gulp.task('buildcss', function() {
+gulp.task('build:bundle_css', function() {
   return gulp.src('src/less/site.less')
     .pipe(less({'sourcemap=none': true}))
     .pipe(autoprefixer())
@@ -16,11 +20,19 @@ gulp.task('buildcss', function() {
     .pipe(gulp.dest('public/dist/'));
 });
 
-gulp.task('buildjs', function() {
+gulp.task('build:bundle_js', function() {
     return gulp.src('src/js/site.js')
     .pipe(browser.browserify())
     .pipe(uglify())
     .pipe(rename('bundle.js'))
+    .pipe(gulp.dest('public/dist/'));
+});
+
+gulp.task('build:react_jsx', function() {
+    return gulp.src('src/jsx/**/*.jsx')
+    .pipe(babelify({ presets: ['react'] }))
+    .pipe(concat('components.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('public/dist/'));
 });
 
@@ -30,10 +42,10 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('monitor', function() {
-    gulp.watch('src/less/*.less', ['buildcss']);
-    gulp.watch('includes/js/*.js', ['buildjs']);
-    gulp.watch('src/js/*.js', ['jshint']);
+gulp.task('watch', function() {
+    gulp.watch('src/less/*.less', ['build:bundle_css']);
+    gulp.watch('src/js/*.js', ['build:bundle_js', 'jshint']);
+    gulp.watch('src/jsx/*.jsx', ['build:react_jsx']);
 });
 
-gulp.task('default', ['buildcss', 'buildjs', 'jshint', 'monitor']);
+gulp.task('default', ['build:bundle_css', 'build:bundle_js', 'build:react_jsx', 'jshint', 'watch']);
