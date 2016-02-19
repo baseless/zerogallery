@@ -1,1 +1,1 @@
-.baba{background:#222;font-size:13px}body{background:#333}body h1{font-size:24px}
+@import ("../../node_modules/") html{background:#eee}body{background:transparent;margin:0;font:14px Lucida Grande,Helvetica,Arial,sans-serif}a{color:#00b7ff}.navbar-fixed-top{background:#fff;border-bottom:1px solid #ccc;height:40px;color:#fff}.row{padding-top:20px}.brand1,.brand2{color:#111}

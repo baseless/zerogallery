@@ -5,7 +5,16 @@ html
     link(rel='stylesheet', href='dist/bundle.css')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js")
   body
+    nav.navbar.navbar-default.navbar-fixed-top
+        div.container-fluid
+            div.navbar-header
+                a.navbar-brand(href="#")
+                    img(src="dist/img/logo-small.png" height="22px" style="float: left; margin-right: 3px;")
+                    span.brand1= "zero"
+                    span.brand2= "GALLERY"
     block contentBody
     script(src="dist/bundle.js")
+    footer
+        block contentFooter
     
     

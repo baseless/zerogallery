@@ -32,14 +32,6 @@ gulp.task('build:bundle_js', function() {
     .pipe(gulp.dest('public/dist/'));
 });
 
-//gulp.task('build:react_jsx', function() {
-//    return gulp.src('src/jsx/**/*.jsx')
-//    .pipe(babelify({ presets: ['react'] }))
-//    .pipe(concat('components.js'))
-//    .pipe(uglify())
-//    .pipe(gulp.dest('public/dist/'));
-//});
-
 gulp.task('jshint', function() {
     return gulp.src('src/js/*.js')
         .pipe(jshint())
@@ -47,7 +39,7 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/less/*.less', ['build:bundle_css']);
+    gulp.watch('src/less/site.less', ['build:bundle_css']);
     gulp.watch('src/js/*.js', ['build:bundle_js', 'jshint']);
     gulp.watch('src/jsx/*.jsx', ['build:bundle_js']);
 });

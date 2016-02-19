@@ -1,8 +1,36 @@
-@import 'test.less';
+@modules: "../../node_modules";
+
+@import '@{modules}/bootstrap/dist/css/bootstrap.min.css';
+
+html {
+  background: #eee;
+}
 
 body {
-    background: #333;
-    h1 {
-        font-size: 24px;
-    }
+  background: transparent;
+   margin: 0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+a {
+  color: #00B7FF;
+}
+
+.navbar-fixed-top {
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+    color: #fff;
+}
+
+.row {
+    padding-top: 20px;
+}
+
+.site-column {
+}
+
+.brand1, .brand2 {
+    color: #111;
+}
+
