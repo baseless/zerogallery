@@ -1,10 +1,9 @@
-extends layout
+extends templates/layout
 
-block content
+block contentBody
     h1= title
     p Welcome to #{title}
-    <div id="hello"></div>
-    script.
-        ReactDOM.render(React.createElement(HelloWorld, null), document.getElementById('hello'));
+    div#hello
+    
     
 

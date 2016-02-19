@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     babelify = require('gulp-babel'),
     rename = require("gulp-rename"),
     concat = require("gulp-concat"),
-    react = require('react');
+    react = require('react'),
+    merge2 = require('merge2');
     
 gulp.task('build:bundle_css', function() {
   return gulp.src('src/less/site.less')
@@ -21,20 +22,23 @@ gulp.task('build:bundle_css', function() {
 });
 
 gulp.task('build:bundle_js', function() {
-    return gulp.src('src/js/site.js')
+    return merge2(
+        gulp.src('src/js/vendors.js'),
+        gulp.src('src/jsx/**/*.jsx').pipe(babelify({ presets: ['react'] })).pipe(concat('components.js'))
+    )
+    .pipe(concat('bundle.js'))
     .pipe(browser.browserify())
     .pipe(uglify())
-    .pipe(rename('bundle.js'))
     .pipe(gulp.dest('public/dist/'));
 });
 
-gulp.task('build:react_jsx', function() {
-    return gulp.src('src/jsx/**/*.jsx')
-    .pipe(babelify({ presets: ['react'] }))
-    .pipe(concat('components.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('public/dist/'));
-});
+//gulp.task('build:react_jsx', function() {
+//    return gulp.src('src/jsx/**/*.jsx')
+//    .pipe(babelify({ presets: ['react'] }))
+//    .pipe(concat('components.js'))
+//    .pipe(uglify())
+//    .pipe(gulp.dest('public/dist/'));
+//});
 
 gulp.task('jshint', function() {
     return gulp.src('src/js/*.js')
@@ -45,7 +49,7 @@ gulp.task('jshint', function() {
 gulp.task('watch', function() {
     gulp.watch('src/less/*.less', ['build:bundle_css']);
     gulp.watch('src/js/*.js', ['build:bundle_js', 'jshint']);
-    gulp.watch('src/jsx/*.jsx', ['build:react_jsx']);
+    gulp.watch('src/jsx/*.jsx', ['build:bundle_js']);
 });
 
-gulp.task('default', ['build:bundle_css', 'build:bundle_js', 'build:react_jsx', 'jshint', 'watch']);
+gulp.task('default', ['build:bundle_css', 'build:bundle_js', 'jshint', 'watch']);
