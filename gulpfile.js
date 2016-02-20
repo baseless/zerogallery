@@ -16,7 +16,7 @@ gulp.task('build:bundle_css', function() {
   return gulp.src('src/less/site.less')
     .pipe(less({'sourcemap=none': true}))
     .pipe(autoprefixer())
-    .pipe(cssnano())
+    .pipe(cssnano({discardComments: {removeAll: true}}))
     .pipe(rename('bundle.css'))
     .pipe(gulp.dest('public/dist/'));
 });
